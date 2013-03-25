@@ -55,7 +55,7 @@ public class UniverseDbAdapter {
 			+ "datemodified text not null, "
 			+ "dateviewed text not null, "
 			+ "path text not null, "
-			+ "container text not null"
+			+ "container text not null, "
 			+ "type text not null, "
 			+ "data1 text not null, "
 			+ "data2 text not null, "
@@ -126,6 +126,9 @@ public class UniverseDbAdapter {
 		init.setAllDesignations("root", "_base", "_colShow");
 		init.setData("1", "0", "0", "0", "0");
 		createEntry(init);
+		init.setAllDesignations("root", "folders", "container");
+		init.setData("", "", "", "", "");
+		createEntry(init);
 	}// end fillInitialData()
 
 	public void close() {
@@ -145,9 +148,9 @@ public class UniverseDbAdapter {
 		args.put(KEY_DATECREATED, dataobj.getDCreated());
 		args.put(KEY_DATEMODIFIED, dataobj.getDModified());
 		args.put(KEY_DATEVIEWED, dataobj.getDViewed());
-		args.put(KEY_PATH, dataobj.getCategory());
+		args.put(KEY_PATH, dataobj.getPath());
 		args.put(KEY_CONTAINER, dataobj.getContainer());
-		args.put(KEY_TYPE, dataobj.getSubCategory());
+		args.put(KEY_TYPE, dataobj.getType());
 		args.put(KEY_DATA1, dataobj.getDataAt(1));
 		args.put(KEY_DATA2, dataobj.getDataAt(2));
 		args.put(KEY_DATA3, dataobj.getDataAt(3));
@@ -245,6 +248,8 @@ public class UniverseDbAdapter {
 	 * @param type = type TODO: add in container too
 	 * 
 	 * @returns Cursor : Filtered list of Data1
+	 * 
+	 * DEPRECATED
 	 */
 	public Cursor fetchAllCategoryEntry(String pa, String contain, String typ) {
 		return gDb.query(DATABASE_UNIVERSE_TABLE, new String[] { KEY_ROWID,
@@ -253,6 +258,41 @@ public class UniverseDbAdapter {
 				+ "' AND " + KEY_TYPE + " = '" + typ + "'", null, null, null,
 				null, null);
 	}// end fetchAllEntry
+
+	/*
+	 * ############################################################
+	 * Returns results for headings and such
+	 */
+	public Cursor fetchAllDesignationEntry(String pa, String contain, String typ) {
+		return gDb.query(DATABASE_UNIVERSE_TABLE, new String[] { KEY_ROWID,
+				KEY_PATH, KEY_CONTAINER, KEY_TYPE, KEY_DATA1 }, KEY_PATH
+				+ " = '" + pa + "' AND " + KEY_CONTAINER + " = '" + contain
+				+ "' AND " + KEY_TYPE + " = '" + typ + "'", null, null, null,
+				null, null);
+	}// end fetchAllHeadingsEntry
+
+	/*
+	 * ############################################################
+	 * Returns results from given path and container
+	 */
+	public Cursor fetchAllEntryFromContainer(String pa, String contain) {
+		return gDb.query(DATABASE_UNIVERSE_TABLE, new String[] { KEY_ROWID,
+				KEY_PATH, KEY_CONTAINER, KEY_TYPE, KEY_DATA1 }, KEY_PATH
+				+ " = '" + pa + "' AND " + KEY_CONTAINER + " = '" + contain
+				+ "'" + " AND NOT " + KEY_TYPE + " = 'container'", null, null, null, null, null);
+	}// end fetchAllHeadingsEntry
+	
+	/*
+	 * ############################################################
+	 * Fetch containers from given parent path
+	 * The type for just a container is container
+	 */
+	public Cursor fetchAllContainersFromPath(String pa){
+		return gDb.query(DATABASE_UNIVERSE_TABLE, new String[] { KEY_ROWID,
+				KEY_PATH, KEY_CONTAINER, KEY_TYPE, KEY_DATA1 }, KEY_PATH
+				+ " = '" + pa + "' AND " + KEY_TYPE + " = '" + "container"
+				+ "'", null, null, null, null, null);
+	}//end fetchAllContainersFromPath()
 
 	/*
 	 * @param rowId : the given row of table

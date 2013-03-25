@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_ald2_add"
+        android:icon="@android:drawable/ic_input_add"
+        android:orderInCategory="10"
+        android:showAsAction="ifRoom"
+        android:title="Add"/>
+    <item
+        android:id="@+id/menu_ald2_settings"
+        android:icon="@drawable/settings"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_settings"/>
+    <item
+        android:id="@+id/menu_ald2_clear"
+        android:icon="@android:drawable/ic_input_delete"
+        android:orderInCategory="20"
+        android:showAsAction="ifRoom"
+        android:title="clear"/>
+
+</menu>
