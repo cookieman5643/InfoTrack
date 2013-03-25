@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">InfoTrack</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="ma_input">Input</string>
+    <string name="ma_table">Table</string>
+    <string name="ma_settings">Settings</string>
+    <string name="ma_graph">Graph</string>
+    <string name="ia_sleep">Sleep Tracking Input Buttons</string>
+    <string name="ia_sleep_btn">Going to Bed (Turn on Sleeping)</string>
+    <string name="ia_wake_btn">Record Waking Up</string>
+    <string name="ia_up_btn">Record When Actually Getting Up</string>
+    <string name="ta_title">View Sleep Data</string>
+    <string name="ta_dateheader">Date: </string>
+    <string name="ta_dataheader">Data: </string>
+    <string name="tv_date">Date:</string>
+    <string name="tv_gen">General Title</string>
+    <string name="ld_dialog_title">Add New: </string>
+    <string name="ld_tv_datecreated_title">Date created:</string>
+    <string name="ld_tv_datemodified_title">Date modified: </string>
+    <string name="ld_tv_dateviewed_title">Date viewed: </string>
+    <string name="ld_tv_category_title">Category: </string>
+    <string name="ld_tv_subcategory_title">Subcategory: </string>
+    <string name="ld_tv_data1_title">Data 1: </string>
+    <string name="ld_tv_data2_title">Data 2: </string>
+    <string name="ld_tv_data3_title">Data 3: </string>
+    <string name="ld_tv_data4_title">Data 4: </string>
+    <string name="ld_tv_data5_title">Data 5: </string>
+
+</resources>

@@ -1,0 +1,100 @@
+# Project Planning and Notes:
+# Author: James Todd
+# Date: March 7, 2013
+#
+
+########################
+##### CODING RULES #####
+########################
+
+1.) Life Cycle Methods:
+	- get if(D)Log.i(TAG,"ActivName + onCreate()"); at the beginning
+	
+2.) General Methods
+	- All methods begin with a /* */ note, describing purpose
+	- All methods end brace noted: }//end method()
+	
+3.) Classes
+	- Naming
+		: Act_Main
+		: ActPref_Preferences
+		: Rec_AppReceiver
+		: Serv_
+		: Prov_VolumeWidget
+		: UniversalDbAdapter
+		: UniversalDataObj
+		: ExtraObj_  just keep a good naming system
+	- Two constants in beginning.
+		: TAG = Application Name
+		: D = true; //used to control logging
+	- Objects
+		: divided into
+			Android Objects (packageManager, volumeManager, etc.)
+			Layout Objects (TextViews, ListViews)
+			Database Objects
+		: if global, designate name by 'g' as in 'gObj'
+		  e.g.
+		  	gPackageManager (or gPM), gVolumeManager, gCTX
+		  	gTV_title, gLV_lv, gBtn_send
+		  	gDb
+		  	
+4.) XML Layouts
+	- Naming File
+		: act_WhichActivity_layout.xml
+		: row_UniversalTable_layout.xml
+		: widget_Volume_layout.xml
+	- ID descriptions
+		id="@+id/'WhichActivAbbrev'ACT_viewkind_place
+		e.g. for Main Activity /mACT_tv_title
+			 for List Activity /lACT_btn_send
+			 for ListDif Act /ldACT_lv_list
+		if two are similar first letter, second becomes specified
+		e.g. for Lion Activity / lionACT_ll_container1
+		
+		UPDATE: use just 'A' instead of 'ACT'
+		Just use caps for activity name actually, all rest lower case
+		e.g. LD_tv_title
+		These are for ID's!
+		
+		
+####################################
+##### InfoTrack Methodology ########
+####################################
+
+Introduction: 
+	The general idea for this application is that I can track a bunch of information in a database, view the data raw,
+potentially graph some of the data 
+
+Scope: Sleep Habits, Eating Habits, 
+
+Input:
+	Makes a new entry in a predefined category. Data for this input can be set, dynamic, or custom.
+	Set: On each click, enter the same exact data - Almost never used, but some aspects are
+	Dynamic: Combines a few 'set' with a few that change i.e. time of entry.
+		e.g. Clicking on "Going to Sleep" is under Cat=Sleep, subCat=data, data1=going, data2=time
+			 In this case time is dynamic
+	Custom: Asks for the custom input each time, in say, a pop up dialog
+		e.g. Clicking "Movie Watched" is Cat=ElectronicMedia, subCat=data, data1=movie, data2=title
+		e.g. Clicking "Make File" Cat=File subCat=file, data1=filename
+		
+Data Viewing (raw) format
+	Initially opens up root Cat and lists all data1 with subCat = '_base' e.g. SleepHabits,ElectronicMedia,etc.
+	Whenever subCat='_base' it only needs to list 1 column worth and that is data1
+	Clicking on cat=root, subCat=_base, data1=SleepHabits sends to
+	cat=SleepHabits, subCat=_base, data1= go to bed
+	
+	Thus, each click on subCat=_base takes us to a new list essentially.
+	
+	How does a list know what headings to use, well it calls cat=root, subCat=heading
+	Whenever the column has show, it'll appear in the list, don't show it won't, and never is not changeable.
+	This also suggests the way to order results of a table. 
+	Must make sure these initial values are set by calling a check of app's first startup.
+	NOTE: youll never be able to view the cat and subcat since they are for filtering, but cat should be in the 
+	title and the subcat should depend on what's viewed. 
+	Also, you could use numbers in the heading entry to show the order and which columns to show. -1 is never
+	0 is not shown, 1-9 are the order. Maybe stored in heading order?
+	
+
+
+
+

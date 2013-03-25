@@ -1,0 +1,188 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".MainActivity"
+    android:isScrollContainer="true" >
+
+    <LinearLayout
+        android:id="@+id/ma_container1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/ma_input_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/ma_input"
+            android:src="@drawable/input" />
+
+        <ImageButton
+            android:id="@+id/ma_table_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/ma_table"
+            android:src="@drawable/table" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ma_container2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ma_container1"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/ma_Input_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/ma_input" />
+
+        <TextView
+            android:id="@+id/ma_Table_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/ma_table" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ma_container3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ma_container2"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/ma_settings_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/ma_settings"
+            android:src="@drawable/settings" />
+
+        <ImageButton
+            android:id="@+id/ma_graph_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/ma_graph"
+            android:src="@drawable/graph" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ma_container4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ma_container3"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/ma_Settings_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/ma_settings" />
+
+        <TextView
+            android:id="@+id/ma_Graph_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/ma_graph" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ma_container5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ma_container4"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/ma_tv_serviceinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Service Info: " />
+
+        <TextView
+            android:id="@+id/ma_tv_servicestate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="none yet.. " />
+
+        <Button
+            android:id="@+id/ma_btn_startservice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Service" />
+        
+        <Button
+            android:id="@+id/ma_btn_stopservice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop Service" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ma_container6"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ma_container5"
+        android:orientation="horizontal" >
+         <Button
+            android:id="@+id/ma_btn_btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Btn1" />
+          <Button
+            android:id="@+id/ma_btn_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="btn2" />
+           <Button
+            android:id="@+id/ma_btn_btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="btn3" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp" />
+
+        <ListView
+            android:id="@+id/main_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/hello_world"
+        android:visibility="gone" />
+
+</RelativeLayout>

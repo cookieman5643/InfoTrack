@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+   
+    <PreferenceCategory android:title="List Activity">
+        <Preference
+            android:title="Clear all Data (NO WARNING)"
+            android:summary="Clicking will clear all data from database, without a confirmation dialog."
+            android:key="pref_cleardata"/>
+        
+        
+    </PreferenceCategory>
+    
+    
+	<PreferenceCategory android:title="Volume Controls">
+	    <CheckBoxPreference 
+	        android:title="Allow Volume Management. "
+	        android:defaultValue="true"
+	        android:summaryOn="Will change volume along with sleep states. "
+	        android:summaryOff="Will NOT change volume along with sleep states. "
+	        android:key="pref_volumeControl"/>
+	    
+	</PreferenceCategory>
+
+
+</PreferenceScreen>

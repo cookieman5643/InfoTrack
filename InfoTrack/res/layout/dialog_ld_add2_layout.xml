@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/LD_rl_maincontainer"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="#1e1e1e"
+              android:padding="10dp">
+
+    	<View
+  		    android:id="@+id/LD_v_div1"
+  		
+  		    android:layout_width="fill_parent"
+  		    android:layout_height="5px"
+  		    android:background="#AA3333"/>
+  		<TextView
+            android:id="@+id/LD_tv_category_title"        
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ld_tv_category_title"
+            android:layout_below="@id/LD_v_div1"
+            android:textSize="28dp"/>
+   		 <TextView
+            android:id="@+id/LD_tv_subcategory_title"        
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ld_tv_subcategory_title"
+            android:layout_below="@id/LD_tv_category_title"
+            android:textSize="28dp"/>
+        <Spinner 
+            android:id="@+id/LD_sp_category"   
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/LD_tv_subcategory_title"/>
+      
+        <EditText
+            android:id="@+id/LD_et_subcategory"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/LD_tv_subcategory_title"
+            android:layout_alignBaseline="@id/LD_tv_subcategory_title"/>
+        <LinearLayout 
+            android:id="@+id/LD_ll_btncontainer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/LD_tv_subcategory_title"
+            android:layout_margin="10dp">
+       <Button
+            android:id="@+id/LD_btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cancel"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/LD_btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="next"
+            android:layout_weight="2"/>
+        </LinearLayout>
+       
+</RelativeLayout>
+   

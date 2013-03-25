@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jmt.infotrack"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="16" />
+
+    <!-- PERMISSIONS -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.jmt.infotrack.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".InputActivity" >
+            <intent-filter>
+            </intent-filter>
+        </activity>
+        <activity android:name=".TableActivity" >
+            <intent-filter>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ListDataActivity"
+            android:theme="@style/LargeWhiteFont" >
+            <intent-filter>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ActivityViewData"
+            android:theme="@style/LargeWhiteFont" >
+            <intent-filter>
+            </intent-filter>
+        </activity>
+        <activity android:name=".GraphActivity" >
+            <intent-filter>
+            </intent-filter>
+        </activity>
+        <activity android:name=".Preferences" >
+            <intent-filter>
+            </intent-filter>
+        </activity>
+        <!-- Volume Widget -->
+        <receiver android:name="VolumeWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/volumewidget_info" />
+        </receiver>
+        <!-- InfoTrack Widget -->
+        <receiver android:name="InfoTrackWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/infotrackwidget_info" />
+        </receiver>
+        <receiver
+            android:name=".InfoTrackReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.jmt.infotrack.SOUND_OFF_INTENT" />
+                <action android:name="com.jmt.infotrack.SOUND_ON_INTENT" />
+                <action android:name="com.jmt.infotrack.SLEEP_ON" />
+                <action android:name="com.jmt.infotrack.SLEEP_OFF" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="InfoTrackService"
+            android:label="myservice" >
+        </service>
+    </application>
+
+</manifest>
