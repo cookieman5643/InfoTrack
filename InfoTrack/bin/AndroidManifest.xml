@@ -24,6 +24,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+         <activity
+            android:name=".ActivityViewData"
+            android:theme="@style/LargeWhiteFont" >
+            <intent-filter>
+            </intent-filter>
+        </activity>
+         <activity
+            android:name=".ActivityListData2"
+            android:theme="@style/LargeWhiteFont" >
+            <intent-filter>
+            </intent-filter>
+        </activity>
         <activity android:name=".InputActivity" >
             <intent-filter>
             </intent-filter>
@@ -38,12 +50,7 @@
             <intent-filter>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ActivityViewData"
-            android:theme="@style/LargeWhiteFont" >
-            <intent-filter>
-            </intent-filter>
-        </activity>
+       
         <activity android:name=".GraphActivity" >
             <intent-filter>
             </intent-filter>

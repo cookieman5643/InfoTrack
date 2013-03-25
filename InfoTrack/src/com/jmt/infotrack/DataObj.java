@@ -15,21 +15,23 @@ public class DataObj {
 
 	// Fields of a DataObj
 	public String dateCreated, dateModified, dateViewed;
-	public String category, subcategory;
+	public String category, subcategory; // deprecated
 	public String path, container, type; // Necessary initial variables
 	public String data1, data2, data3, data4, data5;
 	public String extra1, extra2;
 
 	public DataObj() {
 		setAllDates("dC", "dM", "dV");
-		setAllCategories("cat", "subcat");
+		setAllDesignations("pa", "contain", "typ");
 		setData("d1", "d2", "d3", "d4", "d5");
 		setExtras("e1", "e2");
+		
+		setAllCategories("cat", "subcat");
 	}// end Constructor
 
 	/*
-	 * ############################################################
-	 * #################### DATES ################################ 
+	 * ###########################################################
+	 * #################### DATES ################################
 	 * ###########################################################
 	 */
 	public void setDate(String modified, String viewed) {
@@ -56,45 +58,43 @@ public class DataObj {
 
 	/*
 	 * ############################################################
-	 * #################### DESIGNATION ########################### 
+	 * #################### DESIGNATION ###########################
 	 * ############################################################
 	 */
+	public void setAllDesignations(String pa, String contain, String typ) {
+		path = pa;
+		container = contain;
+		type = typ;
+	}// end setAllDesignations
 
-	/*
-	 * ####### Category #########
-	 */
-
-	public void setCategory(String cat) {
-		category = cat;
-	}// end setCategory()
-
-	public void setSubCategory(String subcat) {
-		subcategory = subcat;
-	}// end setSubCategory()
-
-	public void setAllCategories(String cat, String subcat) {
-		setCategory(cat);
-		setSubCategory(subcat);
-	}// end setAllCategoryes
-
-	public String getCategory() {
-		return category;
-	}// end getCategory()
-
-	public String getSubCategory() {
-		return subcategory;
-	}// end getSubCategory()
-
-	public String getContainer() {
-		return container;
-	}
+	public void setPath(String pa) {
+		path = pa;
+	}// end setPath()
 
 	public void setContainer(String contain) {
 		container = contain;
-	}
+	}// end setContainer()
+
+	public void setType(String typ) {
+		type = typ;
+	}// end setType()
+
+	public String getPath() {
+		return path;
+	}// end getPath()
+
+	public String getContainer() {
+		return container;
+	}// end getContainer()
+
+	public String getType() {
+		return type;
+	}// end getType()
 
 	/*
-	 * ####### DATA #########
+	 * ############################################################
+	 * #################### DATA ##################################
+	 * ############################################################
 	 */
 
 	public void setData(String d1, String d2, String d3, String d4, String d5) {
@@ -127,7 +127,9 @@ public class DataObj {
 	}// end getDataAt()
 
 	/*
-	 * ####### Extras #########
+	 * ############################################################
+	 * ########################### Extras #########################
+	 * ############################################################
 	 */
 	public void setExtras(String e1, String e2) {
 		extra1 = e1;
@@ -147,5 +149,32 @@ public class DataObj {
 		ArrayList<String> beep = getExtras();
 		return beep.get(v - 1);
 	}// end getDataAt()
+
+	// ##########################DEPRECATED####################
+
+	/*
+	 * ####### Category #########
+	 */
+
+	public void setCategory(String cat) {
+		category = cat;
+	}// end setCategory()
+
+	public void setSubCategory(String subcat) {
+		subcategory = subcat;
+	}// end setSubCategory()
+
+	public void setAllCategories(String cat, String subcat) {
+		setCategory(cat);
+		setSubCategory(subcat);
+	}// end setAllCategoryes
+
+	public String getCategory() {
+		return category;
+	}// end getCategory()
+
+	public String getSubCategory() {
+		return subcategory;
+	}// end getSubCategory()
 
 }// end Class

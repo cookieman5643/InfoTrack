@@ -88,9 +88,12 @@ public class MainActivity extends Activity {
 				gCtx.stopService(stsintent);
 				return;
 			case R.id.ma_btn_btn1:
-				//gAlarmMan.
+				gBtn1.setText("NEW ListData");
+				Intent go = new Intent(gCtx, ActivityListData2.class);
+				startActivity(go);
 				return;
 			case R.id.ma_btn_btn2:
+				gBtn2.setText("ActViewData");
 				return;
 			case R.id.ma_btn_btn3:
 				return;

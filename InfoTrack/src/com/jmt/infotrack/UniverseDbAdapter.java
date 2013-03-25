@@ -117,9 +117,15 @@ public class UniverseDbAdapter {
 	 */
 	public void fillInitialData() {
 		DataObj init = new DataObj();
-		init.setAllCategories("root", "heading");
-		init.setData("Lists", "", "", "", "");
+		init.setAllDesignations("root", "_base", "_base");
+		init.setData("", "", "", "", "");
 		this.createEntry(init);
+		init.setAllDesignations("root", "_base", "_colNames");
+		init.setData("Lists", "", "", "", "");
+		createEntry(init);
+		init.setAllDesignations("root", "_base", "_colShow");
+		init.setData("1", "0", "0", "0", "0");
+		createEntry(init);
 	}// end fillInitialData()
 
 	public void close() {
@@ -236,16 +242,16 @@ public class UniverseDbAdapter {
 	/*
 	 * @param path = path
 	 * 
-	 * @param type = type
-	 * TODO: add in container too
+	 * @param type = type TODO: add in container too
 	 * 
 	 * @returns Cursor : Filtered list of Data1
 	 */
-	public Cursor fetchAllCategoryEntry(String cat, String subcat) {
+	public Cursor fetchAllCategoryEntry(String pa, String contain, String typ) {
 		return gDb.query(DATABASE_UNIVERSE_TABLE, new String[] { KEY_ROWID,
-				KEY_PATH, KEY_TYPE, KEY_DATA1 }, KEY_PATH + " = '" + cat
-				+ "' AND " + KEY_TYPE + " = '" + subcat + "'", null, null,
-				null, null, null);
+				KEY_PATH, KEY_CONTAINER, KEY_TYPE, KEY_DATA1 }, KEY_PATH
+				+ " = '" + pa + "' AND " + KEY_CONTAINER + " = '" + contain
+				+ "' AND " + KEY_TYPE + " = '" + typ + "'", null, null, null,
+				null, null);
 	}// end fetchAllEntry
 
 	/*
@@ -256,9 +262,9 @@ public class UniverseDbAdapter {
 	public Cursor fetchEntry(long rowId) throws SQLException {
 		Cursor mCursor = gDb.query(DATABASE_UNIVERSE_TABLE, new String[] {
 				KEY_ROWID, KEY_DATECREATED, KEY_DATEMODIFIED, KEY_DATEVIEWED,
-				KEY_PATH, KEY_CONTAINER, KEY_TYPE, KEY_DATA1, KEY_DATA2, KEY_DATA3, KEY_DATA4,
-				KEY_DATA5, KEY_EXTRA1, KEY_EXTRA2 }, KEY_ROWID + "=" + rowId,
-				null, null, null, null, null);
+				KEY_PATH, KEY_CONTAINER, KEY_TYPE, KEY_DATA1, KEY_DATA2,
+				KEY_DATA3, KEY_DATA4, KEY_DATA5, KEY_EXTRA1, KEY_EXTRA2 },
+				KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null) {
 			mCursor.moveToFirst();
 		}
