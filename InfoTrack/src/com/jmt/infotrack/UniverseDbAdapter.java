@@ -22,15 +22,16 @@ public class UniverseDbAdapter {
 
 	// Class Vars.
 
-	static String TAG = new String("UniversalDbAdapter");
+	static String TAG = new String("UniverseDbAdapter");
 
 	// Fields in Database
 	public static final String KEY_ROWID = "_id";
 	public static final String KEY_DATECREATED = "datecreated";
-	public static final String KEY_DATEEDITTED = "dateeditted";
+	public static final String KEY_DATEMODIFIED = "datemodified";
 	public static final String KEY_DATEVIEWED = "dateviewed";
-	public static final String KEY_CATEGORY = "category";
-	public static final String KEY_SUBCATEGORY = "subcategory";
+	public static final String KEY_PATH = "path";
+	public static final String KEY_CONTAINER = "container";
+	public static final String KEY_TYPE = "type";
 	public static final String KEY_DATA1 = "data1";
 	public static final String KEY_DATA2 = "data2";
 	public static final String KEY_DATA3 = "data3";
@@ -39,9 +40,9 @@ public class UniverseDbAdapter {
 	public static final String KEY_EXTRA1 = "extra1";
 	public static final String KEY_EXTRA2 = "extra2";
 
-	String[] columnOrder = new String[] { "_id", "datecreated", "dateeditted",
-			"dateviewed", "category", "subcategory", "data1", "data2", "data3",
-			"data4", "data5", "extra1", "extra2" };
+	String[] columnOrder = new String[] { "_id", "datecreated", "datemodified",
+			"dateviewed", "path", "container", "type", "data1", "data2",
+			"data3", "data4", "data5", "extra1", "extra2" };
 
 	// DB OBJECTS
 	private DatabaseHelper gDbHelper;
@@ -49,23 +50,25 @@ public class UniverseDbAdapter {
 	private final Context gCtx;
 
 	// DB CREATION STATEMENTS
-	private static final String DATABASE_CREATE = "create table universaltable (_id integer primary key autoincrement, "
+	private static final String DATABASE_CREATE = "create table universetable (_id integer primary key autoincrement, "
 			+ "datecreated text not null, "
-			+ "dateeditted text not null, "
+			+ "datemodified text not null, "
 			+ "dateviewed text not null, "
-			+ "category text not null, "
-			+ "subcategory text not null, "
+			+ "path text not null, "
+			+ "container text not null"
+			+ "type text not null, "
 			+ "data1 text not null, "
 			+ "data2 text not null, "
 			+ "data3 text not null, "
 			+ "data4 text not null, "
 			+ "data5 text not null, "
-			+ "extra1 text not null, " + "extra2 text not null); ";
+			+ "extra1 text not null, "
+			+ "extra2 text not null); ";
 
 	// DB INFO CONSTS
-	private static final String DATABASE_NAME = "universal_db";
-	private static final String DATABASE_UNIVERSAL_TABLE = "universaltable";
-	private static final int DATABASE_VERSION = 3;
+	private static final String DATABASE_NAME = "universe_db";
+	private static final String DATABASE_UNIVERSE_TABLE = "universetable";
+	private static final int DATABASE_VERSION = 1;
 
 	// DB CLASS HELP
 	private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -85,7 +88,7 @@ public class UniverseDbAdapter {
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
-			db.execSQL("DROP TABLE IF EXISTS universaltable");
+			db.execSQL("DROP TABLE IF EXISTS universetable");
 			onCreate(db);
 		}
 	}// end class DatabaseHelper
@@ -94,7 +97,7 @@ public class UniverseDbAdapter {
 	// #***** COSTRUCTOR *****#
 	// ########################
 	public UniverseDbAdapter(Context ctx) {
-		Log.i(TAG, "UniversalDbAdapter Constructor");
+		Log.i(TAG, "UniverseDbAdapter Constructor");
 		this.gCtx = ctx;
 	}
 
@@ -109,6 +112,8 @@ public class UniverseDbAdapter {
 	 * This method could vary for other uses of this database class, but
 	 * specifically for InfoTrack This sets up the initial cat=root,
 	 * subCat=heading which is essential for the first opening
+	 * 
+	 * UPDATE: Now using new model
 	 */
 	public void fillInitialData() {
 		DataObj init = new DataObj();
@@ -132,10 +137,11 @@ public class UniverseDbAdapter {
 	public long createEntry(DataObj dataobj) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_DATECREATED, dataobj.getDCreated());
-		args.put(KEY_DATEEDITTED, dataobj.getDModified());
+		args.put(KEY_DATEMODIFIED, dataobj.getDModified());
 		args.put(KEY_DATEVIEWED, dataobj.getDViewed());
-		args.put(KEY_CATEGORY, dataobj.getCategory());
-		args.put(KEY_SUBCATEGORY, dataobj.getSubCategory());
+		args.put(KEY_PATH, dataobj.getCategory());
+		args.put(KEY_CONTAINER, dataobj.getContainer());
+		args.put(KEY_TYPE, dataobj.getSubCategory());
 		args.put(KEY_DATA1, dataobj.getDataAt(1));
 		args.put(KEY_DATA2, dataobj.getDataAt(2));
 		args.put(KEY_DATA3, dataobj.getDataAt(3));
@@ -143,7 +149,7 @@ public class UniverseDbAdapter {
 		args.put(KEY_DATA5, dataobj.getDataAt(5));
 		args.put(KEY_EXTRA1, dataobj.getExtrasAt(1));
 		args.put(KEY_EXTRA2, dataobj.getExtrasAt(2));
-		return gDb.insert(DATABASE_UNIVERSAL_TABLE, null, args);
+		return gDb.insert(DATABASE_UNIVERSE_TABLE, null, args);
 	}// end createEntry
 
 	/*
@@ -151,15 +157,16 @@ public class UniverseDbAdapter {
 	 * That is why we use the DataObj as a mediating object.
 	 */
 	public long createEntryA(String datecreated, String dateeditted,
-			String dateviewed, String category, String subcategory,
+			String dateviewed, String path, String contain, String type,
 			String data1, String data2, String data3, String data4,
 			String data5, String extra1, String extra2) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_DATECREATED, datecreated);
-		args.put(KEY_DATEEDITTED, dateeditted);
+		args.put(KEY_DATEMODIFIED, dateeditted);
 		args.put(KEY_DATEVIEWED, dateviewed);
-		args.put(KEY_CATEGORY, category);
-		args.put(KEY_SUBCATEGORY, subcategory);
+		args.put(KEY_PATH, path);
+		args.put(KEY_CONTAINER, contain);
+		args.put(KEY_TYPE, type);
 		args.put(KEY_DATA1, data1);
 		args.put(KEY_DATA2, data2);
 		args.put(KEY_DATA3, data3);
@@ -167,7 +174,7 @@ public class UniverseDbAdapter {
 		args.put(KEY_DATA5, data5);
 		args.put(KEY_EXTRA1, extra1);
 		args.put(KEY_EXTRA2, extra2);
-		return gDb.insert(DATABASE_UNIVERSAL_TABLE, null, args);
+		return gDb.insert(DATABASE_UNIVERSE_TABLE, null, args);
 	}// end createEntry
 
 	/*
@@ -176,29 +183,30 @@ public class UniverseDbAdapter {
 	 * @param rowId : gives a particular row of the table
 	 */
 	public boolean deleteEntry(long rowId) {
-		return gDb.delete(DATABASE_UNIVERSAL_TABLE, KEY_ROWID + "=" + rowId,
+		return gDb.delete(DATABASE_UNIVERSE_TABLE, KEY_ROWID + "=" + rowId,
 				null) > 0;
 	}// end deleteEntry
-	
-/*	
-Method tries to delete the table from existing.	
-*/
+
+	/*
+	 * Method tries to delete the table from existing.
+	 */
 	public void deleteAll() {
 		// TODO: fix broken code
-		gDb.execSQL("DROP TABLE IF EXISTS " + DATABASE_UNIVERSAL_TABLE);
+		gDb.execSQL("DROP TABLE IF EXISTS " + DATABASE_UNIVERSE_TABLE);
 		gDb.execSQL(DATABASE_CREATE);
 	}
 
 	// NOTE: there is no date created update since that never will change.
 	public boolean updateEntry(long rowId, String dateeditted,
-			String dateviewed, String category, String subcategory,
+			String dateviewed, String path, String contain, String type,
 			String data1, String data2, String data3, String data4,
 			String data5, String extra1, String extra2) {
 		ContentValues args = new ContentValues();
-		args.put(KEY_DATEEDITTED, dateeditted);
+		args.put(KEY_DATEMODIFIED, dateeditted);
 		args.put(KEY_DATEVIEWED, dateviewed);
-		args.put(KEY_CATEGORY, category);
-		args.put(KEY_SUBCATEGORY, subcategory);
+		args.put(KEY_PATH, path);
+		args.put(KEY_CONTAINER, contain);
+		args.put(KEY_TYPE, type);
 		args.put(KEY_DATA1, data1);
 		args.put(KEY_DATA2, data2);
 		args.put(KEY_DATA3, data3);
@@ -206,7 +214,7 @@ Method tries to delete the table from existing.
 		args.put(KEY_DATA5, data5);
 		args.put(KEY_EXTRA1, extra1);
 		args.put(KEY_EXTRA2, extra2);
-		return gDb.update(DATABASE_UNIVERSAL_TABLE, args, KEY_ROWID + "="
+		return gDb.update(DATABASE_UNIVERSE_TABLE, args, KEY_ROWID + "="
 				+ rowId, null) > 0;
 	}// end updateEntry
 
@@ -218,25 +226,26 @@ Method tries to delete the table from existing.
 	 * @returns all entries with all columns.
 	 */
 	public Cursor fetchAllEntry() {
-		return gDb.query(DATABASE_UNIVERSAL_TABLE, new String[] { KEY_ROWID,
-				KEY_DATECREATED, KEY_DATEEDITTED, KEY_DATEVIEWED, KEY_CATEGORY,
-				KEY_SUBCATEGORY, KEY_DATA1, KEY_DATA2, KEY_DATA3, KEY_DATA4,
-				KEY_DATA5, KEY_EXTRA1, KEY_EXTRA2 }, null, null, null, null,
-				null);
+		return gDb.query(DATABASE_UNIVERSE_TABLE, new String[] { KEY_ROWID,
+				KEY_DATECREATED, KEY_DATEMODIFIED, KEY_DATEVIEWED, KEY_PATH,
+				KEY_CONTAINER, KEY_TYPE, KEY_DATA1, KEY_DATA2, KEY_DATA3,
+				KEY_DATA4, KEY_DATA5, KEY_EXTRA1, KEY_EXTRA2 }, null, null,
+				null, null, null);
 	}// end fetchAllEntry
 
 	/*
-	 * @param cat = category
+	 * @param path = path
 	 * 
-	 * @param subCat = sub category
+	 * @param type = type
+	 * TODO: add in container too
 	 * 
 	 * @returns Cursor : Filtered list of Data1
 	 */
 	public Cursor fetchAllCategoryEntry(String cat, String subcat) {
-		return gDb.query(DATABASE_UNIVERSAL_TABLE, new String[] { KEY_ROWID,
-				KEY_CATEGORY, KEY_SUBCATEGORY, KEY_DATA1 }, KEY_CATEGORY
-				+ " = '" + cat + "' AND " + KEY_SUBCATEGORY + " = '" + subcat
-				+ "'", null, null, null, null, null);
+		return gDb.query(DATABASE_UNIVERSE_TABLE, new String[] { KEY_ROWID,
+				KEY_PATH, KEY_TYPE, KEY_DATA1 }, KEY_PATH + " = '" + cat
+				+ "' AND " + KEY_TYPE + " = '" + subcat + "'", null, null,
+				null, null, null);
 	}// end fetchAllEntry
 
 	/*
@@ -245,11 +254,11 @@ Method tries to delete the table from existing.
 	 * @return given row with all of its columns
 	 */
 	public Cursor fetchEntry(long rowId) throws SQLException {
-		Cursor mCursor = gDb.query(DATABASE_UNIVERSAL_TABLE, new String[] {
-				KEY_ROWID, KEY_DATECREATED, KEY_DATEEDITTED, KEY_DATEVIEWED,
-				KEY_CATEGORY, KEY_SUBCATEGORY, KEY_DATA1, KEY_DATA2, KEY_DATA3,
-				KEY_DATA4, KEY_DATA5, KEY_EXTRA1, KEY_EXTRA2 }, KEY_ROWID + "="
-				+ rowId, null, null, null, null, null);
+		Cursor mCursor = gDb.query(DATABASE_UNIVERSE_TABLE, new String[] {
+				KEY_ROWID, KEY_DATECREATED, KEY_DATEMODIFIED, KEY_DATEVIEWED,
+				KEY_PATH, KEY_CONTAINER, KEY_TYPE, KEY_DATA1, KEY_DATA2, KEY_DATA3, KEY_DATA4,
+				KEY_DATA5, KEY_EXTRA1, KEY_EXTRA2 }, KEY_ROWID + "=" + rowId,
+				null, null, null, null, null);
 		if (mCursor != null) {
 			mCursor.moveToFirst();
 		}
@@ -264,8 +273,8 @@ Method tries to delete the table from existing.
 	 * @returns Text of specified row and column
 	 */
 	public String getEntryText(long rowId, String column) {
-		//Log.i(TAG, "about to get cursor"); //Clutters Logs for long tables
-		Cursor mCursor = gDb.query(DATABASE_UNIVERSAL_TABLE, new String[] {
+		// Log.i(TAG, "about to get cursor"); //Clutters Logs for long tables
+		Cursor mCursor = gDb.query(DATABASE_UNIVERSE_TABLE, new String[] {
 				KEY_ROWID, column }, KEY_ROWID + "=" + rowId, null, null, null,
 				null, null);
 		if (mCursor != null) {
